@@ -6,11 +6,17 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var router = express.Router();
 var logger = require('morgan');
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
+var http = require("http");
+
+  app = module.exports.app = express();
+var server = http.createServer(app);
+//server.listen(port, ipAddress);
+var io = require("socket.io").listen(server)
+//var socket = io.listen(server);
+//var io = require("socket.io").listen(server);
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost/testForAuth');
+mongoose.connect('mongodb://localhost:27017/testForAuth');
 var db = mongoose.connection;
 
 //handle mongo error
@@ -43,7 +49,9 @@ var routes = require('./routes/router');
 app.use('/', routes);
 
 require('./routes/routes')(router);
-app.use('/api/v1', router);
+app.use('/api', router);
+
+
 
 
 // catch 404 and forward to error handler
@@ -63,14 +71,19 @@ app.use(function (err, req, res, next) {
 var Log = require('log'),
 log = new Log('debug')
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5555;
+
 
 io.on('connection',function(socket){
+ 
   socket.on('stream',function(image){
+    var clientIp = socket.request.connection.remoteAddress;
+    socket.emit()
       socket.broadcast.emit('stream',image);
+
   });
 });
 // listen on port 3000
-http.listen(port, function(){
-  log.info('Server Connected',port)
+server.listen(port, function(){
+ log.info('Server Connected',port)
 });

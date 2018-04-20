@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>VISUALIZAR VIDEO!</title>
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://10.188.64.29:5555/socket.io/socket.io.js"></script>
 </head>
 <body>
     <img id="play">
     <div id="logger"></div>
 
     <script>
-        var socket = io();
+        var socket = io('http://10.188.64.29:5555', {transport: ['websocket']});
         socket.on('stream',function(image){
             var img = document.getElementById("play");
             img.src = image;

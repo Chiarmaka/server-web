@@ -14,4 +14,5 @@ var userSchema = mongoose.Schema({
 });
 mongoose.Promise = global.Promise;
 
+
 module.exports = mongoose.model('user', userSchema);  

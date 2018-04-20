@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var Staff = require('../models/staff');
+var logger = require('morgan');
+
+
+
 
 
 // GET route for reading data
 router.get('/', function (req, res, next) {
   return res.sendFile(path.join(__dirname + '/templateLogReg/index.html'));
   return res.sendFile(path.join(__dirname + '/templateLogReg/register.html'));
+  
 });
-
 
 //POST route for updating data
 router.post('/', function (req, res, next) {

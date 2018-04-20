@@ -12,7 +12,7 @@ const config = require('../config/config.json');
 module.exports = router => {
 
  //router.get('/', (req, res) => res.end('Welcome to Learn2Crack !'));
-
+ router.get('/ee', (req, res) => res.sendFile(__dirname + '/templateLogReg/emitir.html'));
   router.post('/authenticate', (req, res) => {
 
     const credentials = auth(req);
