@@ -39,6 +39,17 @@ app.use(logger('dev'));
 // serve static files from template
 app.use(express.static(__dirname + '/templateLogReg'));
 
+app.use(express.static(public));
+app.use('/chat', express.static(__dirname + '/public/chatting.html'));
+io.on("connection", function(socket){
+  console.log('user connected');
+  socket.on("message", function(message){
+    console.log('message: '+message);
+    socket.broadcast.emit("message", message);
+  });
+});
+
+
 // include routes
 var routes = require('./routes/router');
 app.use('/', routes);
@@ -47,9 +58,8 @@ require('./routes/routes')(router);
 app.use('/api', router);
 
 app.get('/stream', function(req, res){
-	res.sendFile(path.join(__dirname+'/templateLogReg/stream.html'));
-	//res.send('hola');
-
+  res.sendFile(path.join(__dirname+'/templateLogReg/stream.html'));
+  
 });
 
 
@@ -85,7 +95,7 @@ io.on('connection',function(socket){
 
 var usr = [];
 io.on('connection', function(socket){
-	
+
 	socket.emit('myId', usr.length);
 	usr.push(usr.length);
 	
