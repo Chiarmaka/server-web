@@ -39,7 +39,7 @@ app.use(logger('dev'));
 // serve static files from template
 app.use(express.static(__dirname + '/templateLogReg'));
 
-app.use(express.static(public));
+//app.use(express.static(public));
 app.use('/chat', express.static(__dirname + '/public/chatting.html'));
 io.on("connection", function(socket){
   console.log('user connected');
@@ -62,6 +62,11 @@ app.get('/stream', function(req, res){
   
 });
 
+app.get('/video', function(req, res){
+  res.sendFile(path.join(__dirname+'/video.html'));
+  
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -80,7 +85,7 @@ app.use(function (err, req, res, next) {
 var Log = require('log'),
 log = new Log('debug')
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5555;
 
 /*
 io.on('connection',function(socket){
@@ -114,7 +119,11 @@ io.on('connection', function(socket){
     	
   	});
 });
+
+
+
 // listen on port 3000
 server.listen(port, function(){
  log.info('Server Connected',port)
 });
+
