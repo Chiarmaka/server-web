@@ -1,7 +1,8 @@
 var express = require('express');
 var app = new express();
-var server = require('http').Server(app);
-var io =  require('socket.io')(server);
+var http = require('http').Server(app);
+//var server = http.createServer();
+var io =  require('socket.io')(http);
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -9,6 +10,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var router = express.Router();
 var logger = require('morgan');
+var port = process.env.PORT || 5555;
 
 //connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/testForAuth');
@@ -40,14 +42,6 @@ app.use(logger('dev'));
 app.use(express.static(__dirname + '/templateLogReg'));
 
 //app.use(express.static(public));
-app.use('/chat', express.static(__dirname + '/public/chatting.html'));
-io.on("connection", function(socket){
-  console.log('user connected');
-  socket.on("message", function(message){
-    console.log('message: '+message);
-    socket.broadcast.emit("message", message);
-  });
-});
 
 
 // include routes
@@ -61,12 +55,26 @@ app.get('/stream', function(req, res){
   res.sendFile(path.join(__dirname+'/templateLogReg/stream.html'));
   
 });
+/*app.get('/chatting', function(req, res){
+  res.sendfile(__dirname + '/templateLogReg/chat.html'); 
+});
+
+io.sockets.on('connection', function(socket){
+  socket.on('send message', function(data){
+    io.sockets.emit('new message', data);
+    
+  });
+});
+*/
 
 app.get('/video', function(req, res){
   res.sendFile(path.join(__dirname+'/video.html'));
   
 });
 
+app.get('/chatapp', function(req, res){
+  res.sendFile(__dirname + '/chatapp.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -85,7 +93,7 @@ app.use(function (err, req, res, next) {
 var Log = require('log'),
 log = new Log('debug')
 
-var port = process.env.PORT || 5555;
+
 
 /*
 io.on('connection',function(socket){
@@ -100,6 +108,10 @@ io.on('connection',function(socket){
 
 var usr = [];
 io.on('connection', function(socket){
+
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
 
 	socket.emit('myId', usr.length);
 	usr.push(usr.length);
@@ -123,7 +135,7 @@ io.on('connection', function(socket){
 
 
 // listen on port 3000
-server.listen(port, function(){
- log.info('Server Connected',port)
+http.listen(port, function(){
+  console.log('listening on *:' + port);
 });
 

@@ -3,6 +3,14 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
+var chatSchema = mongoose.Schema({
+  user: String,
+  message: String,
+  location: String,
+  created: {type: Date, default: Date.now}
+
+});
+
 var userSchema = mongoose.Schema({ 
 
   name      : String,
@@ -14,5 +22,5 @@ var userSchema = mongoose.Schema({
 });
 mongoose.Promise = global.Promise;
 
-
+module.exports = mongoose.model('chat', chatSchema);
 module.exports = mongoose.model('user', userSchema);  
