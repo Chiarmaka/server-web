@@ -78,20 +78,10 @@ router.get('/profile', function (req, res, next) {
         } else {
         
           return res.send('<h1>Name: </h1>' + staff.username + '<h2>Mail: </h2>' + staff.email + 
-          '<br> <p><a href ="emitir.html">EMITTIR CAMERA WEB</a></p> <a type="button" href="/logout">Logout</a>')
-          var script = document.createElement(script);
-          script.src = "https://code.jquery.com/jquery-1.11.2.min.js";
-          scipt.src = "/socket.io/socket.io.js";
-
-          var socket = io();
-        socket.on('stream',function(image){
-            var img = document.getElementById("play");
-            img.src = image;
-           $("#logger").text(image);
-          });
+          '<br> <p><iframe src="stream.html"></iframe></p> <a type="button" href="/logout">Logout</a>')
+          
+          }
         }
-        
-      }
     });
 });
 

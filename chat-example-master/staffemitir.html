@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8" >
     <title>Emitir video</title>
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/addons/p5.dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 </head>
-<body>
+<body bgcolor = "#821F09">
+    <div>
     <video src="" id="video" style="width:680px;height:320px;" autoplay="true"></video>
     
     <canvas style="display:none;" id="preview"></canvas>
@@ -16,8 +20,8 @@
         var canvas = document.getElementById("preview");
         var context = canvas.getContext("2d");
 
-        canvas.width = 800;
-        canvas.height = 600;
+        canvas.width = 1000;
+        canvas.height = 350;
 
         context.width = canvas.width;
         context.height = canvas.height;
@@ -34,8 +38,8 @@
         function loadCam(stream){
 
             video.src = window.URL.createObjectURL(stream);
-            logger('Camara conectada correctamaente [OK]');
-            console.log("hi");
+            //logger('Camara conectada correctamaente [OK]');
+            //console.log("hi");
         }
 
         function loadFail()
@@ -63,10 +67,7 @@
             },70);
         });
     </script>
-    <div class="copyright">
-		
-		<p><a href ="localhost:5555/profile">VISSS CAMERA WEB</a></p>
-		
-	</div>		
+    </div>
 </body>
 </html>
+    

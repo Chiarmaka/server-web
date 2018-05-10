@@ -5,9 +5,11 @@
   "dependencies": {
     "express": "^4.15.2",
     "log": "^1.4.0",
+    "nodemon": "^1.17.4",
     "socket.io": "^1.7.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "index.js",
+    "watch": "nodemon app"
   }
 }
