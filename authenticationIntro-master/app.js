@@ -55,7 +55,7 @@ app.get('/stream', function(req, res){
   res.sendFile(path.join(__dirname+'/templateLogReg/stream.html'));
   
 });
-/*app.get('/chatting', function(req, res){
+app.get('/chatting', function(req, res){
   res.sendfile(__dirname + '/templateLogReg/chat.html'); 
 });
 
@@ -65,7 +65,7 @@ io.sockets.on('connection', function(socket){
     
   });
 });
-*/
+
 
 app.get('/video', function(req, res){
   res.sendFile(path.join(__dirname+'/video.html'));
@@ -95,7 +95,7 @@ log = new Log('debug')
 
 
 
-/*
+/
 io.on('connection',function(socket){
  
   socket.on('stream',function(image){
@@ -104,7 +104,7 @@ io.on('connection',function(socket){
       socket.broadcast.emit('stream',image);
 
   });
-}); */
+}); 
 
 var usr = [];
 io.on('connection', function(socket){

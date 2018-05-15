@@ -3,13 +3,30 @@
   "version": "0.0.1",
   "description": "my first socket.io app",
   "dependencies": {
+    "basic-auth": "^2.0.0",
+    "bcrypt": "^2.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
+    "easyrtc": "^1.1.0",
     "express": "^4.15.2",
+    "express-session": "^1.15.6",
+    "express-socket.io-session": "^1.3.3",
+    "jquery": "^3.3.1",
+    "jsonwebtoken": "^8.2.1",
     "log": "^1.4.0",
+    "mongoose": "^5.1.0",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.6.4",
     "nodemon": "^1.17.4",
-    "socket.io": "^1.7.3"
+    "peer": "^0.2.8",
+    "randomstring": "^1.1.5",
+    "simple": "^0.2.0",
+    "socket.io": "^1.7.3",
+    "validator": "^10.2.0"
   },
   "scripts": {
     "start": "index.js",
-    "watch": "nodemon app"
+    "watch": "nodemon app && mongod"
   }
 }
