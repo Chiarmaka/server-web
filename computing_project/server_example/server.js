@@ -1,6 +1,6 @@
 var express = require("express");  
 var app = require('express')();  
-var http    = require("http").Server(app);        // web framework external module
+var http    = require("http");        // web framework external module
 var serveStatic = require('serve-static');  // serve static files
 var socketIo = require("socket.io");        // web socket external module
 var easyrtc = require("../");               // EasyRTC external module
@@ -103,15 +103,19 @@ process.title = "node-easyrtc";
 
 app.use(serveStatic('static', {'index2': ['index2.html']}));
 //app.use(serveStatic(__dirname + '/static'));
-//app.get('/chatapp', function(req, res){
-  // res.sendFile(__dirname + '/index.html');
-//  });
+app.get('/chatapp', function(req, res){
+   res.sendFile(__dirname + '/visualizar.html');
+ });
+
+ app.get('/chatapp2', function(req, res){
+    res.sendFile(__dirname + '/liveandchatuser.html');
+  });
 
 // Start Express http server on port 8080
-//var webServer = http.createServer(app);
+var webServer = http.createServer(app);
 
 // Start Socket.io so it attaches itself to Express server
-var socketServer = socketIo.listen(http, {"log level":1});
+var socketServer = socketIo.listen(webServer, {"log level":1});
 
 easyrtc.setOption("logLevel", "debug");
 
@@ -150,6 +154,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 
 
 //listen on port 8080
-http.listen(5555, function () {
+webServer.listen(5555, function () {
     console.log('listening on http://localhost:5555');
 });

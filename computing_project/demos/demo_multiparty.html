@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <title>Multiparty Chatroom</title>
+
+        <style>
+                #fullpage {
+              height:225px;
+              width:300px;
+              float:left;
+              border:1px solid gray;
+              margin-left:10px;
+            }
+                </style>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
          <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
 
@@ -10,10 +21,11 @@
         <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
         <link rel="stylesheet" type="text/css" href="css/demo_room.css" />
         <script type="text/javascript" src="js/demo_multiparty.js"></script>
+       
     </head>
-
+    
     <body onload="appInit()">
-        <div id="fullpage"  class="boxCommon" style="background-image:url(images/irongrip.png)">
+        <div id="fullpage"  class="boxCommon">
             <video id="box0" class="transit boxCommon thumbCommon easyrtcMirror" muted="muted" volume="0" ></video>
             <video id="box1" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>
             <video id="box2" class="transit boxCommon thumbCommon" style="visibility:hidden"></video>

@@ -79,7 +79,7 @@ router.get('/profile', function (req, res, next) {
         } else {
         
           return res.send('<h1>Name: </h1>' + staff.username + '<h2>Mail: </h2>' + staff.email + 
-          '<br> <p><iframe src="stream.html"></iframe></p> <a type="button" href="/logout">Logout</a>')
+          '<br> <p><iframe frameborder= "1" width="500" height= "500" src="http://10.188.64.85:3000/userview"></iframe></p> <a type="button" href="/logout">Logout</a>')
           
           }
         }
