@@ -15,7 +15,7 @@ var easyrtc = require("easyrtc");
 var Log = require('log'),
 log = new Log('debug')
 
-var port = process.env.PORT || 5555;
+var port = process.env.PORT || 3000;
 
 //connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/testForAuth');
