@@ -59,7 +59,7 @@ process.title = "node-easyrtc";
 
 // Setup and configure Express http server. Expect a subfolder called "static" to be the web root.
 
-app.use(serveStatic('static', {'index': ['index.html']}));
+app.use(serveStatic('static', {'index2': ['index2.html']}));
 //app.use(serveStatic(__dirname + '/static'));
 //app.get('/chatapp', function(req, res){
   // res.sendFile(__dirname + '/index.html');
@@ -106,7 +106,49 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
     });
 });
 
+io.on('connection', function(socket){
+
+    socket.on('chat message', function(msg){
+      io.emit('chat message', msg);
+    });
+    socket.on('stream',function(image){
+      socket.broadcast.emit('stream',image);
+    
+    });
+  
+  
+    socket.on('video2',function(image2){
+      socket.broadcast.emit('stream',image2);
+    
+    });
+    socket.on('video2',function(image2){
+      socket.emit('stream',image2);
+    });
+    socket.on('play2',function(image2){
+      socket.broadcast.emit('stream',image2);
+    
+    });
+    socket.on('play2',function(image2){
+      socket.emit('stream',image);
+    });
+    //
+    socket.on('video',function(image){
+      socket.broadcast.emit('stream',image);
+    
+    });
+    socket.on('video',function(image){
+      socket.emit('stream',image);
+    });
+    socket.on('play',function(image){
+      socket.broadcast.emit('stream',image);
+    
+    });
+    socket.on('play',function(image){
+      socket.emit('stream',image);
+    });
+  });
+
 //listen on port 8080
 webServer.listen(5555, function () {
-    console.log('listening on http://localhost:8080');
+    console.log('listening on http://localhost:5555');
 });

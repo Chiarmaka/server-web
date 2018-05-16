@@ -2,10 +2,11 @@ var selfEasyrtcid = "";
 
 
 function connect() {
-    easyrtc.setVideoDims(640,480);
+    easyrtc.setVideoDims(1280,720);
+    easyrtc.enableDebug(false);
     easyrtc.setRoomOccupantListener(convertListToButtons);
-    easyrtc.easyApp("easyrtc.audioVideoSimple", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
- }
+    easyrtc.easyApp("easyrtc.videoChatHd", "selfVideo", ["callerVideo"], loginSuccess, loginFailure);
+}
 
 
 function clearConnectList() {
@@ -29,6 +30,7 @@ function convertListToButtons (roomName, data, isPrimary) {
 
         var label = document.createTextNode(easyrtc.idToName(easyrtcid));
         button.appendChild(label);
+        button.className = "callbutton";
         otherClientDiv.appendChild(button);
     }
 }
@@ -36,10 +38,14 @@ function convertListToButtons (roomName, data, isPrimary) {
 
 function performCall(otherEasyrtcid) {
     easyrtc.hangupAll();
-
+    var acceptedCB = function(accepted, caller) {
+        if( !accepted ) {
+            easyrtc.showError("CALL-REJECTED", "Sorry, your call to " + easyrtc.idToName(caller) + " was rejected");
+        }
+    };
     var successCB = function() {};
     var failureCB = function() {};
-    easyrtc.call(otherEasyrtcid, successCB, failureCB);
+    easyrtc.call(otherEasyrtcid, successCB, failureCB, acceptedCB);
 }
 
 
@@ -52,3 +58,9 @@ function loginSuccess(easyrtcid) {
 function loginFailure(errorCode, message) {
     easyrtc.showError(errorCode, message);
 }
+
+
+// Sets calls so they are automatically accepted (this is default behaviour)
+easyrtc.setAcceptChecker(function(caller, cb) {
+    cb(true);
+} );
