@@ -1,12 +1,3 @@
-/* global module, require */
-
-/**
- * @file        Entry library for EasyRTC server. Houses the primary listen function.
- * @author      Priologic Software, info@easyrtc.com
- * @copyright   Copyright 2016 Priologic Software. All rights reserved.
- * @license     BSD v2, see LICENSE file in module root folder.
- */
-
 var g           = require("./general_util");        // General utility functions local module
 g.checkModules(); // Check to ensure all required modules are available
 
