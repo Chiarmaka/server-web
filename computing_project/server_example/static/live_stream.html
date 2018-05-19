@@ -2,20 +2,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <!--skip-->
-        <title> Voice Chat</title>
-    
+        <title>EasyRTC Demo: Multistream calls</title>
+        
+        <!--hide-->
+      
+        <!-- Prettify Code -->
         <script type="text/javascript" src="prettify.js"></script>
         <script type="text/javascript" src="loadAndFilter.js"></script>
         <script type="text/javascript" src="jquery.min.js"></script>
-        
+    
+        <!--show-->
+        <!-- Assumes global locations for socket.io.js and easyrtc.js -->
         <script src="/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="easyrtc.js"></script>
-        <script type="text/javascript" src="voicechat.js"></script>
+        <script type="text/javascript" src="live_stream.js"></script>
 
+        <!--hide-->
+        <!-- Styles used within the demo -->
         <style type="text/css">
             #demoContainer {
                 position:relative;
-                background-color: rgb(32, 139, 17);
             }
             #connectControls {
                 float:left;
@@ -24,14 +30,20 @@
                 border: 2px solid black;
             }
             #otherClients {
-                height:80px;
+                height:200px;
                 overflow-y:scroll;
-            
             }
-            #callerAudio {
-                /* display:none; */
-                height:10em;
-                width:10em;
+            #selfVideo {
+                height:225px;
+                width:300px;
+                float:left;
+                border:1px solid gray;
+                margin-left:10px;
+            }
+            #callerVideo {
+                height:225px;
+                width:300px;
+                border:1px solid gray;
                 margin-left:10px;
             }
             #acceptCallBox {
@@ -47,33 +59,45 @@
         </style>
         <!--show-->
     </head>
-    <body bgcolor = "green">
-        <div id="container">
-            <!--hide-->
-            <div id="header">
-            </div>
-            
-                <h2>Voice chat</h2>
+    <body bgcolor ="red">
+         <!--hide-->
+        
 
-                <!--show-->
+            
+            <div id="main">
+
+                             <!--show-->
                 <div id="demoContainer">
                     <div id="connectControls">
                         <button id="connectButton" onclick="connect()">Connect</button>
                         <button id="hangupButton" disabled="disabled" onclick="hangup()">Hangup</button>
                         <div id="iam">Not yet connected...</div>
+                        
+                        <div id="videoSrcBlk">
+                            
+                        </div>
+                        
                         <br />
                         <strong>Connected users:</strong>
                         <div id="otherClients"></div>
                     </div>
 
                     <div id="videos">
-                        <video id="callerAudio"></video>
-                        <div id="acceptCallBox">
+                   <div autoplay="autoplay" id="localVideos"></div>
+                        
+                        <div autoplay="autoplay" id="remoteVideos"></div>
+                        <div id="acceptCallBox"> <!-- Should be initially hidden using CSS -->
                             <div id="acceptCallLabel"></div>
                             <button id="callAcceptButton" >Accept</button> <button id="callRejectButton">Reject</button>
                         </div>
                     </div>
-                </div>                             
-        </div>
+                </div>
+                <!--hide-->
+                <br style="clear:both;" />
+                <hr />
+
+               
+       
+        <!--show-->
     </body>
 </html>

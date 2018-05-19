@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Video Chat</title>
+    <style>
+       
+    #selfVideo {
+      height:225px;
+      width:300px;
+      float:left;
+      border:1px solid gray;
+      margin-left:10px;
+    }
+    #callerVideo {
+      height:225px;
+      width:300px;
+      border:1px solid gray;
+      margin-left:10px;
+    }
+    </style>
+    
+    <script type="text/javascript" src="prettify.js"></script>
+    <script type="text/javascript" src="loadAndFilter.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="prettify.css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="easyrtc.js"></script>
+    <script type="text/javascript" src="video_chat.js"></script>
+
+</head>
+<body onload="connect();",
+bgcolor = "green">
+    <!--hide-->
+    <div id="container">
+      
+        
+        <div id="main">
+            <!-- Main Content -->
+          
+            <h2>Video Chat</h2>
+        
+            <div id="demoContainer">
+                <div id="connectControls">
+                    <div id="iam">Not yet connected...</div>
+                    <br />
+                    <strong>Connected users:</strong>
+                    <div id="otherClients"></div>
+                </div>
+                <div id="videos">
+                    <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+                    <div style="position:relative;float:left;">
+                    <video autoplay="autoplay" id="callerVideo"></video>
+                    </div>
+                </div>
+            </div>
+           <hr />
+        </div>
+        
+    </div>
+</body>
+</html>

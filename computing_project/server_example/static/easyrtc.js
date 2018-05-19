@@ -1,35 +1,3 @@
-/* global define, module, require */
-/*!
-  Script: easyrtc_lang.js
-
-    Provides lang file.
-
-  About: License
-
-    Copyright (c) 2016, Priologic Software Inc.
-    All rights reserved.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-        * Redistributions of source code must retain the above copyright notice,
-          this list of conditions and the following disclaimer.
-        * Redistributions in binary form must reproduce the above copyright
-          notice, this list of conditions and the following disclaimer in the
-          documentation and/or other materials provided with the distribution.
-
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-*/
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         //RequireJS (AMD) build system
@@ -46,29 +14,22 @@
 
 return {
   "unableToEnterRoom":"Unable to enter room {0} because {1}" ,
-  "resolutionWarning": "Requested video size of {0}x{1} but got size of {2}x{3}",
-  "badUserName": "Illegal username {0}",
   "localMediaError": "Error getting local media stream: {0}",
   "miscSignalError": "Miscellaneous error from signalling server. It may be ignorable.",
   "noServer": "Unable to reach the EasyRTC signalling server.",
   "badsocket": "Socket.io connect event fired with bad websocket.",
   "icf": "Internal communications failure",
-  "statsNotSupported":"call statistics not supported by this browser, try Chrome.",
-   "noWebrtcSupport":"Your browser doesn't appear to support WebRTC.",
-   "gumFailed":"Failed to get access to local media. Error code was {0}.",
-   "requireAudioOrVideo":"At least one of audio and video must be provided"   
+
+   "gumFailed":"Failed to get access to local media. Error code was {0}.",  
 };
 
 }));
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define('webrtc-adapter',[],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.adapter = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
- /* eslint-env node */
-
 
 // SDP helpers.
 var SDPUtils = {};
 
 // Generate an alphanumeric identifier for cname or mids.
-// TODO: use UUIDs instead? https://gist.github.com/jed/982883
 SDPUtils.generateIdentifier = function() {
   return Math.random().toString(36).substr(2, 10);
 };
@@ -97,9 +58,6 @@ SDPUtils.matchPrefix = function(blob, prefix) {
   });
 };
 
-// Parses an ICE candidate line. Sample input:
-// candidate:702786350 2 udp 41819902 8.8.8.8 60769 typ relay raddr 8.8.8.8
-// rport 55996"
 SDPUtils.parseCandidate = function(line) {
   var parts;
   // Parse both variants.
@@ -165,8 +123,7 @@ SDPUtils.writeCandidate = function(candidate) {
   return 'candidate:' + sdp.join(' ');
 };
 
-// Parses an rtpmap line, returns RTCRtpCoddecParameters. Sample input:
-// a=rtpmap:111 opus/48000/2
+// Parses an rtpmap line, returns RTCRtpCoddecParameters
 SDPUtils.parseRtpMap = function(line) {
   var parts = line.substr(9).split(' ');
   var parsed = {
@@ -182,8 +139,8 @@ SDPUtils.parseRtpMap = function(line) {
   return parsed;
 };
 
-// Generate an a=rtpmap line from RTCRtpCodecCapability or
-// RTCRtpCodecParameters.
+// Generate an a=rtpmap line from RTCRtpCodecCapability or RTCRtpCodecParameters.
+
 SDPUtils.writeRtpMap = function(codec) {
   var pt = codec.payloadType;
   if (codec.preferredPayloadType !== undefined) {
