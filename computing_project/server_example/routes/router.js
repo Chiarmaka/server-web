@@ -10,7 +10,6 @@ var logger = require('morgan');
 // GET route for reading data
 router.get('/', function (req, res, next) {
   return res.sendFile(path.join(__dirname + '/templateLogReg/index.html'));
-  return res.sendFile(path.join(__dirname + '/templateLogReg/register.html'));
   
 });
 
@@ -78,8 +77,8 @@ router.get('/profile', function (req, res, next) {
           return next(err);
         } else {
         
-          return res.send('<h1>Name: </h1>' + staff.username + '<h2>Mail: </h2>' + staff.email + 
-          '<br> <p><iframe frameborder= "1" width="500" height= "500" src="http://10.188.64.85:3000/userview"></iframe></p> <a type="button" href="/logout">Logout</a>')
+          return res.send("welcome " +" " + staff.username + 
+          '<a type="button" href="/logout">Clock out</a> <p><iframe frameborder= "1" width="1500" height= "700" src="http://10.188.64.85:5555/staff_desktop.html"></iframe></p>')
           
           }
         }
@@ -87,7 +86,7 @@ router.get('/profile', function (req, res, next) {
 });
 
 // GET for logout logout
-router.get('/logout', function (req, res, next) {
+router.get('/clock_out', function (req, res, next) {
   if (req.session) {
     // delete session object
     req.session.destroy(function (err) {

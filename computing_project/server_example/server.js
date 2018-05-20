@@ -43,57 +43,12 @@ app.use(session({
   // serve static files from template
   app.use(express.static(__dirname + '/templateLogReg'));
   
-  //app.use(express.static(public));
-  
-  
   // include routes
   var routes = require('./routes/router');
   app.use('/', routes);
   
   require('./routes/routes')(router);
   app.use('/api', router);
-
-  io.on('connection', function(socket){
-
-    socket.on('chat message', function(msg){
-      io.emit('chat message', msg);
-    });
-    socket.on('stream',function(image){
-      socket.broadcast.emit('stream',image);
-    
-    });
-  
-  
-    socket.on('video2',function(image2){
-      socket.broadcast.emit('stream',image2);
-    
-    });
-    socket.on('video2',function(image2){
-      socket.emit('stream',image2);
-    });
-    socket.on('play2',function(image2){
-      socket.broadcast.emit('stream',image2);
-    
-    });
-    socket.on('play2',function(image2){
-      socket.emit('stream',image);
-    });
-    //
-    socket.on('video',function(image){
-      socket.broadcast.emit('stream',image);
-    
-    });
-    socket.on('video',function(image){
-      socket.emit('stream',image);
-    });
-    socket.on('play',function(image){
-      socket.broadcast.emit('stream',image);
-    
-    });
-    socket.on('play',function(image){
-      socket.emit('stream',image);
-    });
-  });
 
 
 // Set process name
@@ -111,7 +66,7 @@ app.get('/chatapp', function(req, res){
     res.sendFile(__dirname + '/liveandchatuser.html');
   });
 
-// Start Express http server on port 8080
+// Start Express http server on port 5555
 var webServer = http.createServer(app);
 
 // Start Socket.io so it attaches itself to Express server
@@ -155,5 +110,5 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 
 //listen on port 8080
 webServer.listen(5555, function () {
-    console.log('listening on http://localhost:5555');
+    console.log('listening on port 5555');
 });

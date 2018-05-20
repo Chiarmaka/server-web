@@ -13,6 +13,9 @@ var port = process.env.PORT || 3000;
 app.get('/staffview', function(req, res){
   res.sendFile(__dirname + '/staffview.html');
 });
+app.get('/livechat', function(req, res){
+  res.sendFile(__dirname + '/chatting.html');
+});
 app.get('/userview', function(req, res){
   res.sendFile(__dirname + '/userview.html');
 });
